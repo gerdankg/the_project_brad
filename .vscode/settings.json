@@ -1,7 +1,11 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#4C1B40",
-        "titleBar.activeBackground": "#6A265A",
-        "titleBar.activeForeground": "#FDF8FC"
-    }
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#705168",
+    "titleBar.activeBackground": "#514e58",
+    "titleBar.activeForeground": "#fdf7fc"
+  },
+  "prettier.singleQuote": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
 }

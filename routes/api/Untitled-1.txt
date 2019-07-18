@@ -1,0 +1,66 @@
+const express = require("express");
+const router = express.Router();
+const gravatar = require('gravatar'); /// if u didn't then npm instal gravatar
+const brcypt = require('bcryptjs');
+const { check, validationResult } = require("express-validator/check");
+const User = require("../../models/User");
+// @route       post API / users
+// @description Test route
+// @access      Public
+router.post(
+  "/",
+  [
+    check("name", "NAme is required")
+      .not()
+      .isEmpty(),
+    check("email", "Please include a valid email").isEmail(),
+    check("password", "Please enter a password with 6 or more").isLength({
+      min: 6
+    })
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { name, email, password } = req.body;
+
+    try {
+      //See if user exists //Search by email
+      let user = await User.findOne({email});
+      if(user) { // checking if user exist
+        res.status(400).json({errors: [{ msg: 'User already exist'}]});
+    }
+
+      //Get users gravatar based on user email
+    //passing user email through method and getting gravatar
+    const avatar = gravatar.url(email, {
+        s: '200',///default size
+        r: 'pg', ///rating
+        d: 'mm'  //default
+    })
+        user = new User({
+name,
+email,
+avatar,
+password
+        });
+
+      // Encrypt password using bcrypt
+      const salt = await bcrypt.genSalt(10); ///more u have more security
+
+      user.password = await brcypt.hash(password, salt); //create hash
+
+      await user.save(); /// add await (what gives us/return/ a promise in front)
+
+      //Return jsonwebtoken 'when user loged in, he will be loged in)
+
+      res.send("User registered");
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("SErver error");
+    }
+  }
+);
+
+module.exports = router;
