@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator/check');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route       GET API / profile/me
 // @description Get current users profile
@@ -144,6 +145,8 @@ router.get('/user/:user_id', async (req, res) => {
 router.delete('/', auth, async (req, res) => {
   try {
     //@todoo - rmeove users posts
+    await Post.deleteMany({ user: req.user.id });
+    //Remove users posts
 
     //remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
@@ -323,10 +326,10 @@ router.get('/github/:username', (req, res) => {
     const options = {
       uri: `https://api.github.com/users/${
         req.params.username
-      }/repos?per_page=5&
+        }/repos?per_page=5&
       sort=created:asc&client_id=${config.get(
-        'githubClientId'
-      )}&client_sercret=${config.get('githubSecret')}`,
+          'githubClientId'
+        )}&client_sercret=${config.get('githubSecret')}`,
       method: 'GET',
       headers: { 'user-agent': 'node.js' }
     };

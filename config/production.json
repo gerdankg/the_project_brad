@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://alma:alma123@devconnector-lr4l7.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken",
+  "githubClientId": "7553ad64569dd42bfabf",
+  "githubSecret": "8efcfec597faec34dd24153b5dc8e29ecb57177a"
+}

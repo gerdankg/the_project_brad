@@ -1,8 +1,8 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.background": "#705168",
-    "titleBar.activeBackground": "#514e58",
-    "titleBar.activeForeground": "#fdf7fc"
+    "activityBar.background": "#ffe7f9",
+    "titleBar.activeBackground": "#26164e",
+    "titleBar.activeForeground": "#d38cb0"
   },
   "prettier.singleQuote": true,
   "emmet.includeLanguages": {
